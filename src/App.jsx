@@ -1,18 +1,24 @@
+import { useReducer } from 'react';
 import './App.scss';
 import DataContext from './Components/DataContext';
-import RegistrationForm from './Components/RegistrationForm';
+import Registration from './Components/RegistrationForm';
+import data_reducer from './Reducers/dataReducer';
 
 function App() {
+
+  const [data, dispachData] = useReducer(data_reducer, []);
+
   return (
-    <>
+    <div className='container'>
       <DataContext.Provider
         value={{
-
+          data,
+          dispachData,
         }}
       >
-        <RegistrationForm />
+        <Registration />
       </DataContext.Provider>
-    </>
+    </div>
   );
 }
 

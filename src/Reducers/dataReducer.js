@@ -1,4 +1,5 @@
 import { addNewAcc_const } from "../Constants/dataConstants";
+import updateDataInLocalStorage from "../Functions/updateDataInLocalStorage";
 
 function data_reducer(state, action) {
 
@@ -6,7 +7,8 @@ function data_reducer(state, action) {
 
     switch (action.type) {
         case addNewAcc_const:
-
+            newState = [...newState, action.payload];
+            updateDataInLocalStorage(newState);
             break;
 
         default:
