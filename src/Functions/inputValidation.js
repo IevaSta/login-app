@@ -2,13 +2,20 @@ function inputValidation(type, input) {
 
     input = input.trim();
 
-    if (!input) {
-        return input;
-    }
+    let payload = {
+        value: input,
+        error: false,
+        notification: ''
+    };
 
     switch (type) {
         case 'name':
-            input = input[0].toUpperCase() + input.slice(1).toLowerCase();
+            if (!input) {
+                payload = { ...payload, error: true, notification: 'Name input is empty.' };
+                break;
+            }
+
+            payload = { ...payload, value: input[0].toUpperCase() + input.slice(1).toLowerCase() };
             break;
 
         case 'email':
@@ -21,7 +28,7 @@ function inputValidation(type, input) {
 
         default:
     }
-    return input;
+    return payload;
 }
 
 export default inputValidation;
