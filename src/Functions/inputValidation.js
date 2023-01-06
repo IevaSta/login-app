@@ -15,15 +15,28 @@ function inputValidation(type, input) {
                 break;
             }
 
-            payload = { ...payload, value: input[0].toUpperCase() + input.slice(1).toLowerCase() };
+            const newInputName = input[0].toUpperCase() + input.slice(1).toLowerCase();
+            payload = { ...payload, value: newInputName };
             break;
 
         case 'email':
-            //add validation, if you want :) 
+            if (!input) {
+                payload = { ...payload, error: true, notification: 'Email input is empty.' };
+                break;
+            }
+
+            const newInputEmail = input.toLowerCase();
+            payload = { ...payload, value: newInputEmail };
             break;
 
         case 'pass':
-            //add validation, if you want :) 
+            const passLenght = 4;
+            if (input.length < 4) {
+                payload = { ...payload, error: true, notification: `Password must contain at least ${passLenght} characters.` };
+                break;
+            }
+
+            payload = { ...payload, value: input };
             break;
 
         default:

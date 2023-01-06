@@ -4,6 +4,7 @@ import { addNewAcc_action } from "../Actions/dataActions";
 import getId from "../Functions/getId";
 import inputValidation from "../Functions/inputValidation";
 import DataContext from "./DataContext";
+import Notifications from "./Notifications";
 
 function Registration() {
     const { dispachData } = useContext(DataContext);
@@ -15,17 +16,23 @@ function Registration() {
     const [type, setType] = useState('password');
     const [isChecked, setIsCheched] = useState(false);
 
-    // const [alert, setAlert] = useState(false);
-    // const [notification, setNotification] = useState('');
-
+    const [notificationsList, setNotificationsList] = useState([]);
 
     const registration = (e) => {
         e.preventDefault();
+
+        setNotificationsList([]);
+
         const name = inputValidation('name', nameRef.current.value);
         const email = inputValidation('email', emailRef.current.value);
         const pass = inputValidation('pass', passRef.current.value);
 
-        if (name && email && pass && isChecked) {
+        const isName = !name.error;
+        const isEmail = !email.error;
+        const isPass = !pass.error;
+
+
+        if (isName && isEmail && isPass && isChecked) {
             dispachData(
                 addNewAcc_action({
                     id: getId(),
@@ -41,14 +48,26 @@ function Registration() {
             emailRef.current.value = "";
             passRef.current.value = "";
             setIsCheched(false);
+        } else {
+            if (!isName) {
+                setNotificationsList(n => [...n, name.notification])
+            }
+            if (!isEmail) {
+                setNotificationsList(n => [...n, email.notification])
+            }
+            if (!isPass) {
+                setNotificationsList(n => [...n, pass.notification])
+            }
+            if (!isChecked) {
+                setNotificationsList(n => [...n, 'Ihardcodintas eroooor -> varna spaudziam.'])
+            }
         }
     }
 
     return (
         <>
-            {/* <div>{notification}</div> */}
-
             <h1>Registration</h1>
+            {notificationsList.length ? <Notifications notificationsList={notificationsList} /> : null}
             <form onSubmit={e => registration(e)} className="form">
                 <label>
                     <input ref={nameRef} type="text" placeholder="Name" />
