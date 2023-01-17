@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { useContext, useRef } from "react";
 import { registration_action } from "../Actions/dataActions";
 import getId from "../Functions/getId";
@@ -7,7 +8,7 @@ import DataContext from "./DataContext";
 import Notifications from "./Notifications";
 
 function Registration() {
-    const { dispachData } = useContext(DataContext);
+    const { data, dispachData } = useContext(DataContext);
 
     const nameRef = useRef();
     const emailRef = useRef();
@@ -20,7 +21,6 @@ function Registration() {
 
     const registration = (e) => {
         e.preventDefault();
-
         setNotificationsList([]);
 
         const name = inputValidation('name', nameRef.current.value);
@@ -45,6 +45,7 @@ function Registration() {
             emailRef.current.value = "";
             passRef.current.value = "";
             setIsCheched(false);
+
         } else {
             if (!isName) {
                 setNotificationsList(n => [...n, name.notification])
@@ -60,6 +61,13 @@ function Registration() {
             }
         }
     }
+
+    useEffect(() => {
+        if (data) {
+            const notifications = data[1];
+            setNotificationsList(notifications);
+        }
+    }, [data]);
 
     return (
         <>

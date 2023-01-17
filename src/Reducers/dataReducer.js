@@ -4,21 +4,20 @@ import updateDataInLocalStorage from "../Functions/updateDataInLocalStorage";
 
 function data_reducer(_, action) {
 
-    let newState = [JSON.parse(localStorage.getItem('usersData')) || [], []];
+    let newState = [{}, []];
+    let data = JSON.parse(localStorage.getItem('usersData')) || [];
 
     switch (action.type) {
         case registration_const:
-            if (newState[0]) {
-                if (!newState[0].some(u => u.email === action.payload.email)) {
-                    newState[0] = [...newState[0], { ...action.payload, id: getId() }];
-                    updateDataInLocalStorage(newState[0]);
+            if (data) {
+                if (!data.some(u => u.email === action.payload.email)) {
+                    newState[0] = { ...action.payload, id: getId(), registrationDate: Date.now() };
+                    data = [...data, newState[0]];
+                    updateDataInLocalStorage(data);
+                } else {
+                    newState[1] = ['Toks email jau egzistuoja.'];
                 }
-            } else {
-                //code here
             }
-
-            // a@gmail.com
-
             break;
 
         default:

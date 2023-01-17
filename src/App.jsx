@@ -6,7 +6,7 @@ import data_reducer from './Reducers/dataReducer';
 
 function App() {
 
-  const [data, dispachData] = useReducer(data_reducer, []);
+  const [data, dispachData] = useReducer(data_reducer, null);
 
   return (
     <div className='container'>
