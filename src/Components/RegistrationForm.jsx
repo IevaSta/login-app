@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useContext, useRef } from "react";
-import { addNewAcc_action } from "../Actions/dataActions";
+import { registration_action } from "../Actions/dataActions";
 import getId from "../Functions/getId";
 import inputValidation from "../Functions/inputValidation";
 import DataContext from "./DataContext";
@@ -31,16 +31,13 @@ function Registration() {
         const isEmail = !email.error;
         const isPass = !pass.error;
 
-
         if (isName && isEmail && isPass && isChecked) {
             dispachData(
-                addNewAcc_action({
+                registration_action({
                     id: getId(),
-                    name,
-                    email,
-                    pass,
-                    deleted: false,
-                    check: false,
+                    name: name.value,
+                    email: email.value,
+                    pass: pass.value
                 })
             );
 

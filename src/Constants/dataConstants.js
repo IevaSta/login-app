@@ -1,1 +1,1 @@
-export const addNewAcc_const = 'addNewAcc';
+export const registration_const = 'registration_const';

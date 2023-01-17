@@ -1,8 +1,8 @@
-import { addNewAcc_const } from "../Constants/dataConstants";
+import { registration_const } from "../Constants/dataConstants";
 
-export function addNewAcc_action(newData) {
+export function registration_action(newData) {
     return {
-        type: addNewAcc_const,
+        type: registration_const,
         payload: newData
     }
 }
