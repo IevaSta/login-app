@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useContext, useRef } from "react";
+import { Link } from "react-router-dom";
 import { registration_action } from "../Actions/dataActions";
 import getId from "../Functions/getId";
 import inputValidation from "../Functions/inputValidation";
@@ -96,7 +97,9 @@ function Registration() {
 
                 <article>
                     <h2>Have acc?</h2>
-                    <button>Sign in</button>
+                    <Link to='/login'>Sign in</Link>
+                    <br></br>
+                    <Link to='/'>Home</Link>
                 </article>
             </form>
         </>
