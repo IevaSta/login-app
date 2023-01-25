@@ -74,7 +74,7 @@ function Registration() {
         <>
             <h1>Registration</h1>
             {notificationsList.length ? <Notifications notificationsList={notificationsList} /> : null}
-            <form onSubmit={e => registration(e)} className="form">
+            <form onSubmit={e => registration(e)} className="form" action='/login'>
                 <label>
                     <input ref={nameRef} type="text" placeholder="Name" />
                 </label>
